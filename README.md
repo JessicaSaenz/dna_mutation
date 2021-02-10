@@ -16,10 +16,10 @@ Also, be sure to have `git` available in your PATH, `npm` might need it (You can
 If the installation was successful, you should be able to run the following command.
 
     $ node --version
-    v8.11.3
+    v10.23.0
 
     $ npm --version
-    6.1.0
+    6.14.8
 
 If you need to update `npm`, you can make it using `npm`! Cool right? After running the following command, just open again the command line and be happy.
 
@@ -44,5 +44,5 @@ If you need to update `npm`, you can make it using `npm`! Cool right? After runn
     Pasword:''
 
 ## DataBase Mysql 
-DB Name: mutation_db
-Table Name: dna
+    DB Name: mutation_db
+    Table Name: dna
