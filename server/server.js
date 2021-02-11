@@ -171,10 +171,10 @@ function getOccurence(dna_string) {
 
 //Database cxn
 const cxn = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "mutation_db"
+    host: "us-cdbr-east-03.cleardb.com",
+    user: "bf059c4ff189de",
+    password: "3a1dc71e",
+    database: "heroku_4b0cdab7b25a90d"
 });
 
 cxn.connect(function (err) {
