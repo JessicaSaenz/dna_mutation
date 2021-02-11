@@ -1,11 +1,13 @@
 const express = require('express');
-const app = express();
 const mysql = require('mysql');
 
 const bodyParser = require('body-parser');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
+
+const PORT = process.env.PORT || 3050;
+const app = express();
 app.use(bodyParser.json());
 
 let countOccurence = 0;
@@ -59,10 +61,6 @@ app.get('/stats', function (req, res) {
                 message: err
             })
         })
-})
-
-app.listen(3000, () => {
-    console.log('Listen port: ', 3000);
 })
 
 //Chech mutation
@@ -222,3 +220,5 @@ function countDnaNotMutation() {
         })
     })
 }
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
