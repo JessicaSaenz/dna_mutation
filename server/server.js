@@ -10,6 +10,10 @@ app.use(bodyParser.json());
 
 let countOccurence = 0;
 
+app.get('/', (req, res) => {
+    res.send('Welcome to my API!');
+});
+
 app.post('/mutation', function (req, res) {
     let body = req.body;
 
@@ -125,7 +129,7 @@ function diagonally(matrix) {
 //Inverted Diagonally
 function invertedDiagonally(matrix) {
     let dna_string = '';
-    j = matrix.length - 1;    
+    j = matrix.length - 1;
     for (let i = 0; i < matrix.length; i++) {
         dna_string = dna_string + matrix[i][j]
         j--;
