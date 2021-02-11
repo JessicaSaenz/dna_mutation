@@ -4,7 +4,7 @@
   "description": "dna mutation test project",
   "main": "app.js",
   "scripts": {
-    "start": "node server/server.js"
+    "start": "node server/server"
   },
   "author": "Jessica Saenz",
   "license": "ISC",
