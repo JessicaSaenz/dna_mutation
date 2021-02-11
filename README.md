@@ -40,9 +40,10 @@ If you need to update `npm`, you can make it using `npm`! Cool right? After runn
     $ nodemon server/server
 
 ## DataBase Mysql Cxn
-    Username: root
-    Pasword:''
+    host: "us-cdbr-east-03.cleardb.com",
+    user: "bf059c4ff189de",
+    password: "3a1dc71e",
 
 ## DataBase Mysql 
-    DB Name: mutation_db
+    DB Name: heroku_4b0cdab7b25a90d
     Table Name: dna
