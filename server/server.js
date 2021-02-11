@@ -24,12 +24,12 @@ app.post('/mutation', function (req, res) {
         .then(countOccurence => {
             if (countOccurence >= 2) {
                 registerDna(body.dna, 1)
-                res.status(403).json({
+                res.status(200).json({
                     message: "Yes mutation"
                 })
             } else {
                 registerDna(body.dna, 0)
-                res.status(200).json({
+                res.status(403).json({
                     message: "No mutation"
                 })
             }
@@ -63,10 +63,12 @@ app.listen(3000, () => {
 
 //Chech mutation
 async function checkMutation(matrix) {
+    countOccurence = 0;
     try {
         horizontally(matrix);
         vertically(matrix);
         diagonally(matrix);
+        invertedDiagonally(matrix);
         return countOccurence;
     } catch (err) {
         throw err;
@@ -78,7 +80,6 @@ async function getStats() {
     try {
         let count_mutations = await countDnaMutations();
         let count_no_mutation = await countDnaNotMutation();
-        console.log(count_no_mutation)
         let ratio = 0;
         (count_mutations == 0 || count_no_mutation == 0) ? ratio = 0 : ratio = count_mutations / count_no_mutation;
 
@@ -117,6 +118,17 @@ function diagonally(matrix) {
     for (let i = 0; i < matrix.length; i++) {
         dna_string = dna_string + matrix[i][j]
         j++;
+    }
+    return getOccurence(dna_string);
+}
+
+//Inverted Diagonally
+function invertedDiagonally(matrix) {
+    let dna_string = '';
+    j = matrix.length - 1;    
+    for (let i = 0; i < matrix.length; i++) {
+        dna_string = dna_string + matrix[i][j]
+        j--;
     }
     return getOccurence(dna_string);
 }
@@ -163,6 +175,11 @@ const cxn = mysql.createConnection({
     user: "root",
     password: "",
     database: "mutation_db"
+});
+
+cxn.connect(function (err) {
+    if (err) throw err;
+    console.log("Connected!");
 });
 
 //Register dna
