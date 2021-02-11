@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('mysql');
+const app = express();
 
 const bodyParser = require('body-parser');
 // parse application/x-www-form-urlencoded
@@ -7,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 
 const PORT = process.env.PORT || 3050;
-const app = express();
+
 app.use(bodyParser.json());
 
 let countOccurence = 0;
