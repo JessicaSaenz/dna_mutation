@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 3050;
 app.use(bodyParser.json());
 
 let countOccurence = 0;
+let cxn;
 
 app.get('/', (req, res) => {
     res.send('Welcome to my API!');
@@ -173,17 +174,25 @@ function getOccurence(dna_string) {
 }
 
 //Database cxn
-const cxn = mysql.createConnection({
-    host: "us-cdbr-east-03.cleardb.com",
-    user: "bf059c4ff189de",
-    password: "3a1dc71e",
-    database: "heroku_4b0cdab7b25a90d"
-});
+function makeConnection() {
+    cxn = mysql.createConnection({
+        host: "us-cdbr-east-03.cleardb.com",
+        user: "bf059c4ff189de",
+        password: "3a1dc71e",
+        database: "heroku_4b0cdab7b25a90d"
+    });
 
-cxn.connect(function (err) {
-    if (err) throw err;
-    console.log("Connected!");
-});
+    cxn.connect(function (err) {
+        if (err) {
+            makeConnection();
+        };
+        console.log("Connected!");
+    });
+
+    cxn.on('error', function (err) {
+        makeConnection();
+    });
+}
 
 //Register dna
 function registerDna(dna, mutation) {
@@ -221,5 +230,7 @@ function countDnaNotMutation() {
         })
     })
 }
+
+makeConnection();
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
