@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 
 let countOccurence = 0;
 let cxn;
+let invalidSequence = false;
 
 app.get('/', (req, res) => {
     res.send('Welcome to my API!');
@@ -68,6 +69,7 @@ app.get('/stats', function (req, res) {
 //Chech mutation
 async function checkMutation(matrix) {
     countOccurence = 0;
+    invalidSequence = false;
     try {
         horizontally(matrix);
         vertically(matrix);
@@ -155,20 +157,25 @@ async function buildMatriz(dna) {
 
 //Check Ocurrence
 function getOccurence(dna_string) {
-    let map = new Map([
-        ["A", 0],
-        ["T", 0],
-        ["C", 0],
-        ["G", 0],
-    ])
-    Array.from(dna_string).map(letter => {
-        if (map.has(letter)) {
-            map.set(letter, map.get(letter) + 1)
-        }
-    })
+    if (invalidSequence === false) {
+        let map = new Map([
+            ["A", 0],
+            ["T", 0],
+            ["C", 0],
+            ["G", 0],
+        ])
+        Array.from(dna_string).map(letter => {
+            if (map.has(letter)) {
+                map.set(letter, map.get(letter) + 1)
+            } else {
+                invalidSequence = true;
+                countOccurence = -1;
+            }
+        })
 
-    if (map.get("A") >= 4 || map.get("T") >= 4 || map.get("C") >= 4 || map.get("G") >= 4) {
-        countOccurence++;
+        if (map.get("A") >= 4 || map.get("T") >= 4 || map.get("C") >= 4 || map.get("G") >= 4) {
+            countOccurence++;
+        }        
     }
     return countOccurence
 }
