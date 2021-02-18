@@ -36,6 +36,10 @@ app.post('/mutation', function (req, res) {
                 res.status(200).json({
                     message: "Yes mutation"
                 })
+            } else if (countOccurence === -1) {
+                res.status(500).json({
+                    message: "Invalid mutation string"
+                })
             } else {
                 registerDna(body.dna, 0)
                 res.status(403).json({
@@ -175,7 +179,7 @@ function getOccurence(dna_string) {
 
         if (map.get("A") >= 4 || map.get("T") >= 4 || map.get("C") >= 4 || map.get("G") >= 4) {
             countOccurence++;
-        }        
+        }
     }
     return countOccurence
 }
